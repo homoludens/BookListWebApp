@@ -2,19 +2,24 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 
 
 
-class MainController
+class MainController extends AbstractController
 {
   /**
-   * @Route("/", name="index")
+   * @Route("/")
+   *
+   * @param BlogRepository $blogRepository
+   *
+   * @return Response
    */
-  public function index()
+  public function index(BlogRepository $blogRepository)
   {
-    return new Response('test');
+    return $this->render('list.html.twig');
   }
 }
