@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BlogRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BlogRepository::class)
@@ -19,21 +20,27 @@ class Blog
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Title cannot be empty.")
+     * @Assert\Length(max=255)
      */
     private $title;
 
-    /**
+  /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(max=255)
      */
-    private $short_description;
+  private $short_description;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $body;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Image()
      */
     private $image;
 
