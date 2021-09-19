@@ -6,8 +6,10 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+//use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Blog;
 use App\Form\BlogType;
+
 /**
  * Movie controller.
  * @Route("/api", name="api_")
@@ -16,31 +18,31 @@ class BlogController extends AbstractFOSRestController
 {
   /**
    * Lists all Movies.
-   * @Rest\Get("/blogs")
+   * @Rest\Get("/bloglist")
    *
    * @return Response
    */
-  public function getMovieAction()
+  public function getBlogAction()
   {
     $repository = $this->getDoctrine()->getRepository(Blog::class);
-    $movies = $repository->findall();
-    return $this->handleView($this->view($movies));
+    $blogs = $repository->findall();
+    return $this->handleView($this->view($blogs));
   }
   /**
-   * Create Movie.
-   * @Rest\Post("/movie")
+   * Create Blog.
+   * @Rest\Post("/blogpost")
    *
    * @return Response
    */
-  public function postMovieAction(Request $request)
+  public function postBlogAction(Request $request)
   {
-    $movie = new Blog();
-    $form = $this->createForm(BlogType::class, $movie);
+    $blog = new Blog();
+    $form = $this->createForm(BlogType::class, $blog);
     $data = json_decode($request->getContent(), true);
     $form->submit($data);
     if ($form->isSubmitted() && $form->isValid()) {
       $em = $this->getDoctrine()->getManager();
-      $em->persist($movie);
+      $em->persist($blog);
       $em->flush();
       return $this->handleView($this->view(['status' => 'ok'], Response::HTTP_CREATED));
     }
