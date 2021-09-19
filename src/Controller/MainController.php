@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Blog;
-use App\Form\Type\BlogFormType;
+use App\Form\BlogFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
