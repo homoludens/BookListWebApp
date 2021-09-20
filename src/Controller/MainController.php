@@ -139,4 +139,24 @@ class MainController extends AbstractController
     return $this->redirectToRoute('app_index');
   }
 
+  /**
+   * @Route("/view/{id}", name="app_blog_view")
+   *
+   * @param Blog                   $blog
+   * @param EntityManagerInterface $em
+   *
+   * @return RedirectResponse
+   */
+  public function viewBlog(Blog $blog, EntityManagerInterface $em, BlogRepository $blogRepository)
+  {
+
+    $this->addFlash('success', 'Blog was viewed!');
+//    $blogRepository->find()
+    return $this->render('viewblog.html.twig', ['blog' => $blog]);
+//    $em->remove($blog);
+//    $em->flush();
+
+
+  }
+
 }
