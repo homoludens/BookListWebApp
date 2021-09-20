@@ -36,6 +36,12 @@ security:
 
             custom_authenticators:
                 - App\Security\ApiKeyAuthenticator
+            custom_authenticator: App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+
             # remember to also configure the entry_point if the
             # authenticator implements AuthenticationEntryPointInterface
             # entry_point: App\Security\CustomFormLoginAuthenticator
