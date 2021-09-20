@@ -50,10 +50,16 @@ security:
 #                max_attempts: 3
 #                interval: '15 minutes'
 
+    role_hierarchy:
+        ROLE_VERIFIED_USER: [ ROLE_USER ]
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/login, roles: PUBLIC_ACCESS }
+            # allow unauthenticated users to access the login form
+#         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
+            # but require authentication for all other admin routes
          - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/login, roles: PUBLIC_ACCESS }
          - { path: ^/edit, roles: ROLE_USER }
          - { path: ^/profile, roles: ROLE_USER }
