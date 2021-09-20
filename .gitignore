@@ -50,3 +50,13 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+# Public files
+/public/*
+!/public/.gitkeep
+
+# sqlite db
+/var/data.db
+
+# vim cache files
+*~
