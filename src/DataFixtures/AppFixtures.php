@@ -21,8 +21,10 @@ class AppFixtures extends Fixture
               Pellentesque sit amet lacus in metus placerat posuere. Aliquam hendrerit risus elit, non commodo nulla cursus id. 
               Vivamus tristique felis leo, vitae laoreet sapien eleifend vitae. Etiam varius sollicitudin tincidunt');
         $blog->setShortDescription('Lorem ipsum description');
+        $manager->persist($blog);
       }
 
+      $manager->persist($blog);
       $manager->flush();
     }
 }

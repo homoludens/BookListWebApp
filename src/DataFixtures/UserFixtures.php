@@ -21,8 +21,13 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
       $user = new User();
-
+      $user->setEmail("test" . uniqid() . "@droopia.net");
       $user->setPassword($this->passwordHasher->hashPassword( $user, 'the_new_password'));
+      $manager->persist($user);
+      $manager->flush();
+
+      // other fixtures can get this object using the UserFixtures::ADMIN_USER_REFERENCE constant
+//      $this->addReference(self::ADMIN_USER_REFERENCE, $user);
 
     }
 
