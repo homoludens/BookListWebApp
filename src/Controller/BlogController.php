@@ -1,14 +1,17 @@
 <?php
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-//use Symfony\Component\Routing\Annotation\Route;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Blog;
 use App\Form\BlogType;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 //use App\Form\BlogFormType;
 
 /**
@@ -35,11 +38,42 @@ class BlogController extends AbstractFOSRestController
    *
    * @return Response
    */
-  public function postBlogAction(Request $request)
+  public function postBlogAction(Request $request, SluggerInterface $slugger)
   {
+
+
+//    $metadata = json.loads(request.args['metadata'][0])
+//    $file_body = $request.args['file'][0]
+
     $blog = new Blog();
     $form = $this->createForm(BlogType::class, $blog);
-    $data = json_decode($request->getContent(), true);
+
+    $metadata_test_1  = $request->getContent();
+    $data_1 = json_decode($request->getContent(), true);
+
+    $metadata_test = $request->get('metadata');
+    $data = json_decode($metadata_test, true);
+
+
+    $imageFile = $request->files->get('file');
+//    $imageFile = $form->get('imageFile')->getData();
+    if ($imageFile) {
+      $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+      $safeFilename = $slugger->slug($originalFilename);
+      $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+
+      try {
+        $imageFile->move(
+          $this->getParameter('image_directory'),
+          $newFilename
+        );
+      } catch (FileException $e) {
+        $this->addFlash('error', 'Image cannot be saved.');
+      }
+      $blog->setImage($newFilename);
+    }
+
+
     $form->submit($data);
     if ($form->isSubmitted() && $form->isValid()) {
       $em = $this->getDoctrine()->getManager();
