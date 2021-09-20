@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 //use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Blog;
 use App\Form\BlogType;
+//use App\Form\BlogFormType;
 
 /**
  * Movie controller.
