@@ -34,9 +34,10 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
-#            custom_authenticators:
-#                - App\Security\ApiKeyAuthenticator
-            custom_authenticator: App\Security\LoginFormAuthenticator
+            custom_authenticators:
+                - App\Security\LoginFormAuthenticator
+                - App\Security\ApiKeyAuthenticator
+#            custom_authenticator: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -63,3 +64,5 @@ security:
          - { path: ^/login, roles: PUBLIC_ACCESS }
          - { path: ^/edit, roles: ROLE_USER }
          - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/api, roles: ROLE_USER }
+
