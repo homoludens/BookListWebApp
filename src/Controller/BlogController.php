@@ -32,6 +32,7 @@ class BlogController extends AbstractFOSRestController
     $blogs = $repository->findall();
     return $this->handleView($this->view($blogs));
   }
+
   /**
    * Create Blog.
    * @Rest\Post("/blogpost")

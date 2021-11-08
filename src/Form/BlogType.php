@@ -14,6 +14,9 @@ class BlogType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder->add('title', TextType::class, ['attr' => ['class' => 'form-control']]);
+    $builder->add('author', TextType::class, ['attr' => ['class' => 'form-control']]);
+    $builder->add('published_year', TextType::class, ['attr' => ['class' => 'form-control']]);
+    $builder->add('isbn', TextType::class, ['attr' => ['class' => 'form-control']]);
     $builder->add('shortDescription', TextType::class, ['attr' => ['class' => 'form-control']]);
     $builder->add('body', TextType::class, ['attr' => ['class' => 'form-control']]);
     $builder->add('imageFile', FileType::class, [

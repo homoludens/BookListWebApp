@@ -25,12 +25,30 @@ class Blog
      */
     private $title;
 
-  /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(max=255)
      */
-  private $short_description;
+    private $author;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
+     */
+    private $published_year;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
+     */
+    private $isbn;
+
+    /**
+       * @ORM\Column(type="string", length=255)
+       * @Assert\NotBlank()
+       * @Assert\Length(max=255)
+       */
+    private $short_description;
 
     /**
      * @ORM\Column(type="text")
@@ -60,6 +78,43 @@ class Blog
 
         return $this;
     }
+
+    public function getAuthor(): ?string
+    {
+      return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+      $this->author = $author;
+
+      return $this;
+    }
+
+    public function setPublishedYear(string $published_year): self
+    {
+      $this->published_year = $published_year;
+
+      return $this;
+    }
+
+    public function getPublishedYear(): ?string
+    {
+      return $this->published_year;
+    }
+
+    public function setISBN(string $isbn): self
+    {
+      $this->isbn = $isbn;
+
+      return $this;
+    }
+
+    public function getISBN(): ?string
+    {
+      return $this->isbn;
+    }
+
 
     public function getShortDescription(): ?string
     {
