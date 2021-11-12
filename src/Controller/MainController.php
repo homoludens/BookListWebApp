@@ -134,10 +134,29 @@ class MainController extends AbstractController
   {
     $em->remove($blog);
     $em->flush();
-    $this->addFlash('success', 'Blog was edited!');
+    $this->addFlash('success', 'Blog was deleted!');
 
     return $this->redirectToRoute('app_index');
   }
+
+  /**
+   * @Route("/deleteallbooks")
+   */
+  public function deleteAllBooks(EntityManagerInterface $em)
+  {
+    $repository = $em->getRepository(Blog::class);
+    $entities = $repository->findAll();
+
+    foreach ($entities as $entity) {
+      $em->remove($entity);
+    }
+    $em->flush();
+
+    $this->addFlash('success', 'All Books were deleted!');
+    return $this->redirectToRoute('app_index');
+
+  }
+
 
   /**
    * @Route("/view/{id}", name="app_blog_view")

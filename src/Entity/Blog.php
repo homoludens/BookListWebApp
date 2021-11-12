@@ -44,15 +44,13 @@ class Blog
     private $isbn;
 
     /**
-       * @ORM\Column(type="string", length=255)
-       * @Assert\NotBlank()
+       * @ORM\Column(type="string", length=255, nullable=true)
        * @Assert\Length(max=255)
        */
     private $short_description;
 
     /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="text", nullable=true)
      */
     private $body;
 
